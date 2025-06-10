@@ -1,0 +1,29 @@
+gitignore
+# Byte-compiled files
+*.pyc
+__pycache__/
+
+# Distribution / packaging
+.Python
+env/
+venv/
+build/
+develop-eggs/
+dist/
+eggs/
+*.egg-info
+.installed.cfg
+
+# Interpreters
+.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Environment variables
+.env
