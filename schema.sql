@@ -7,7 +7,9 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.updated_at = NOW();
+  IF TG_OP = 'UPDATE' AND NEW.updated_at IS NOT NULL THEN
+    NEW.updated_at = NOW();
+  END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
