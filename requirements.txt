@@ -1,1 +1,2 @@
-fastapi[standard]
+fastapi[standard]sqlalchemy
+psycopg2-binary
