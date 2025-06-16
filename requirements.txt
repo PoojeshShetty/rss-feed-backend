@@ -1,8 +1,0 @@
-fastapi
-uvicorn[standard]
-psycopg2-binary
-SQLAlchemy
-python-dotenv
-firebase-admin
-feedparser
-bleach
