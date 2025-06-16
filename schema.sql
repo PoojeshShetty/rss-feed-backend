@@ -105,3 +105,10 @@ CREATE TRIGGER set_blog_posts_updated_at
 BEFORE UPDATE ON blog_posts
 FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
+-- SQL schema for the User model
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    hashed_password VARCHAR(255) NOT NULL
+);

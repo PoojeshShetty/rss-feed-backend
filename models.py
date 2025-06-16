@@ -24,6 +24,9 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
 
-# Call this function to create tables in the database
+# Call this function to create tables in the database using schema.sql
 def create_db_tables():
-    Base.metadata.create_all(bind=engine)
+    with engine.connect() as connection:
+        with open("schema.sql", "r") as schema_file:
+            schema_sql = schema_file.read()
+            connection.execute(schema_sql)
