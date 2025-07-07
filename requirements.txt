@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+sqlalchemy
+python-dotenv
+alembic
+python-decouple
+psycopg2
