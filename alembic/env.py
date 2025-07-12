@@ -7,7 +7,8 @@ from sqlalchemy import pool
 
 from alembic import context
 from app.database import Base
-from app.models.users import User
+from app import models
+# from app.models.feed_categories import FeedCategory
 
 
 load_dotenv()
