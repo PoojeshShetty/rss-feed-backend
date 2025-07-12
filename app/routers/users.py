@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from ..models.users import User
-from ..database import SessionLocal
-from ..schema.user import UserCreate
+from app.models.users import User
+from app.database import SessionLocal
+from app.schema.user import UserCreate
 
 router = APIRouter()
 
