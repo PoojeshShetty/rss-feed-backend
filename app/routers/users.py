@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from app.models.users import User
 from app.database import SessionLocal
-from app.schema.user import UserCreate
+from app.schema.user import UserCreate, UserResponse
 
 router = APIRouter()
 
@@ -23,3 +23,13 @@ def create_user(user: UserCreate):
     db.refresh(db_user)
     db.close()
     return db_user
+
+@router.get("/users/", response_model=list[UserResponse])
+def get_users():
+    """
+    Get all users from the database.
+    """
+    db = SessionLocal()
+    users = db.query(User).all()
+    db.close()
+    return users

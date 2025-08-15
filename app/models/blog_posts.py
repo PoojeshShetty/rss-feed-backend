@@ -1,5 +1,6 @@
-from sqlalchemy import Column, String, Text, TIMESTAMP
+from sqlalchemy import Column, String, Text, TIMESTAMP, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from app.database import Base
 import uuid
 
@@ -7,7 +8,7 @@ class BlogPost(Base):
     __tablename__ = "blog_posts"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    feed_id = Column(UUID(as_uuid=True), nullable=False)
+    feed_id = Column(UUID(as_uuid=True), ForeignKey('rss_feeds.id'), nullable=False)
     guid = Column(Text, unique=True, nullable=False)
     title = Column(Text, nullable=False)
     link = Column(Text, nullable=False)
@@ -18,3 +19,5 @@ class BlogPost(Base):
     image_url = Column(Text)
     created_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
     updated_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
+
+    feed = relationship("RSSFeed", back_populates="blog_posts")
