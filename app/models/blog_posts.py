@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Text, TIMESTAMP, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from app.database import Base
 import uuid
 
@@ -18,3 +19,5 @@ class BlogPost(Base):
     image_url = Column(Text)
     created_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
     updated_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
+
+    feed = relationship("RSSFeed", back_populates="blog_posts")
