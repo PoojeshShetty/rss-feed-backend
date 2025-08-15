@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Text, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from app.database import Base
 import uuid
 
@@ -17,3 +18,5 @@ class RSSFeed(Base):
     error_details = Column(Text)
     created_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
     updated_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
+
+    blog_posts = relationship("BlogPost", back_populates="feed")
