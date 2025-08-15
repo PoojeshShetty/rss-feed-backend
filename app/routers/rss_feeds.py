@@ -27,3 +27,13 @@ def create_rss_feed(rss_feed: RSSFeedCreate):
     db.refresh(db_rss_feed)
     db.close()
     return db_rss_feed
+
+@router.get("/rss_feeds/", response_model=list[RSSFeedCreate])
+def get_rss_feeds():
+    """
+    Get all RSS feeds from the database.
+    """
+    db = SessionLocal()
+    rss_feeds = db.query(RSSFeed).all()
+    db.close()
+    return rss_feeds

@@ -20,3 +20,4 @@ class RSSFeed(Base):
     updated_at = Column(TIMESTAMP, nullable=False, server_default='NOW()')
 
     blog_posts = relationship("BlogPost", back_populates="feed")
+    feed_categories = relationship("FeedCategory", back_populates="feed")
