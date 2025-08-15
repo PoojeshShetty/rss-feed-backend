@@ -11,5 +11,10 @@ class Category(Base):
     name = Column(String(255), unique=True, nullable=False)
     slug = Column(String(255), unique=True, nullable=False)
     description = Column(Text)
-
+    
     feed_categories = relationship("FeedCategory", back_populates="category")
+    feeds = relationship(
+        "RSSFeed",
+        secondary="feed_categories",
+        back_populates="categories"
+    )

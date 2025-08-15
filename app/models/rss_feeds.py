@@ -21,3 +21,8 @@ class RSSFeed(Base):
 
     blog_posts = relationship("BlogPost", back_populates="feed")
     feed_categories = relationship("FeedCategory", back_populates="feed")
+    categories = relationship(
+        "Category",
+        secondary="feed_categories",  # name of association table
+        back_populates="feeds"
+    )
