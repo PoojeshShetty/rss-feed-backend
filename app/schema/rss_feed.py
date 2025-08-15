@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
 import uuid
+from typing import List
+from app.schema.category import CategoryGet
 
 class RSSFeedCreate(BaseModel):
     feed_url: str
@@ -13,6 +15,14 @@ class RSSFeedCreate(BaseModel):
     error_details: str = None
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
+    category_ids: List[uuid.UUID] = []
+
+    class Config:
+        orm_mode = True
+
+class RSSFeedGet(RSSFeedCreate):
+    id: uuid.UUID
+    categories: List[CategoryGet] = []
 
     class Config:
         orm_mode = True
