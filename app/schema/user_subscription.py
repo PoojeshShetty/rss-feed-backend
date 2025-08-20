@@ -4,10 +4,13 @@ import uuid
 from datetime import datetime
 
 class UserSubscriptionCreate(BaseModel):
-    user_id: uuid.UUID
     feed_id: uuid.UUID
-    subscribed_at: datetime = datetime.now()
-    is_active: bool = True
+
+    class Config:
+        orm_mode = True
+
+class UserUnSubscribe(BaseModel):
+    feed_id: uuid.UUID
 
     class Config:
         orm_mode = True

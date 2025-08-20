@@ -4,6 +4,7 @@ from .routers.users import router as UserRouter
 from .routers.categories import router as CategoryRouter
 from .routers.rss_feeds import router as RssFeedRouter
 from .routers.blog_posts import router as BlogPostRouter
+from .routers.user_subscriptions import router as UserSubscriptionRouter
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.include_router(UserRouter)
 app.include_router(CategoryRouter)
 app.include_router(RssFeedRouter)
 app.include_router(BlogPostRouter)
+app.include_router(UserSubscriptionRouter)
 
 @app.get("/")
 def read_root():
