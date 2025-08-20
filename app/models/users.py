@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from app.database import Base
 import uuid
 
@@ -12,3 +13,5 @@ class User(Base):
     display_name = Column(String(255))
     created_at = Column(TIMESTAMP(timezone=True), nullable=False)
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False)
+
+    subscriptions = relationship("UserSubscription", back_populates="user")

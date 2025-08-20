@@ -27,3 +27,5 @@ class RSSFeed(Base):
         secondary="feed_categories",  # name of association table
         back_populates="feeds"
     )
+
+    subscriptions = relationship("UserSubscription", back_populates="feed")
