@@ -2,9 +2,12 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session, joinedload
 from app.database import SessionLocal
 from app.models.blog_posts import BlogPost
+from app.models.bookmarks import Bookmark
 from app.schema.blog_post import BlogPostCreate, BlogPostWithFeed
 
 router = APIRouter()
+
+MOCK_USERID = "3f2a190b-0155-4b73-9f56-d05098567d19"
 
 @router.post("/blog_posts/", response_model=BlogPostCreate)
 def create_blog_post(blog_post: BlogPostCreate):
@@ -38,3 +41,21 @@ def get_blog_posts():
     blog_posts = db.query(BlogPost).options(joinedload(BlogPost.feed)).all()
     db.close()
     return blog_posts
+
+@router.get("/blog_posts/bookmarked", response_model=list[BlogPostWithFeed])
+def get_bookmarked_blog_posts():
+    """
+    Get all blog posts that are bookmarked by the user.
+    """
+    db = SessionLocal()
+    try:
+        bookmarked_blog_posts = (
+            db.query(BlogPost)
+            .join(Bookmark, BlogPost.id == Bookmark.blog_post_id)
+            .filter(Bookmark.user_id == MOCK_USERID)
+            .options(joinedload(BlogPost.feed))
+            .all()
+        )
+        return bookmarked_blog_posts
+    finally:
+        db.close()

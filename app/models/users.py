@@ -15,3 +15,4 @@ class User(Base):
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False)
 
     subscriptions = relationship("UserSubscription", back_populates="user")
+    bookmarks = relationship("Bookmark", back_populates="user")
