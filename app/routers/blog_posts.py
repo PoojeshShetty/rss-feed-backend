@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.database import SessionLocal
 from app.models.blog_posts import BlogPost
 from app.models.bookmarks import Bookmark
+from app.models.user_subscriptions import UserSubscription
 from app.schema.blog_post import BlogPostCreate, BlogPostWithFeed
 
 router = APIRouter()
@@ -57,5 +58,24 @@ def get_bookmarked_blog_posts():
             .all()
         )
         return bookmarked_blog_posts
+    finally:
+        db.close()
+
+@router.get("/blog_posts/subscribed", response_model=list[BlogPostWithFeed])
+def get_subscribed_blog_posts():
+    """
+    Get all blog posts for the feeds the user is subscribed to.
+    """
+    db = SessionLocal()
+    try:
+        subscribed_blog_posts = (
+            db.query(BlogPost)
+            .join(UserSubscription, BlogPost.feed_id == UserSubscription.feed_id)
+            .filter(UserSubscription.user_id == MOCK_USERID)
+            .filter(UserSubscription.is_active == True)  # Added filter for active subscriptions
+            .options(joinedload(BlogPost.feed))
+            .all()
+        )
+        return subscribed_blog_posts
     finally:
         db.close()
